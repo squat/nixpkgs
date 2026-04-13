@@ -2326,6 +2326,8 @@ with pkgs;
     binutils = binutils-unwrapped;
   };
 
+  fli = with python3Packages; toPythonApplication fli;
+
   fltrdr = callPackage ../tools/misc/fltrdr {
     icu = icu63;
   };
