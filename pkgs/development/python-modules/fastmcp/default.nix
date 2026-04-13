@@ -20,6 +20,7 @@
   mcp,
   openai,
   openapi-pydantic,
+  opentelemetry-api,
   packaging,
   platformdirs,
   py-key-value-aio,
@@ -27,8 +28,11 @@
   pydocket,
   pyperclip,
   python-dotenv,
+  pyyaml,
   rich,
+  uncalled-for,
   uvicorn,
+  watchfiles,
   websockets,
 
   # tests
@@ -45,14 +49,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "fastmcp";
-  version = "2.14.5";
+  version = "3.2.3";
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "jlowin";
+    owner = "PrefectHQ";
     repo = "fastmcp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-j3aUvAKm0rW5X/l1VXoSBc5fCjSLxnyznwzj1D3E7Ck=";
+    hash = "sha256-YfFAJvfKLOgfGFWyQmR4FGHrRc066Y0mAYhXJqJ9vyw=";
   };
 
   build-system = [
@@ -60,9 +64,6 @@ buildPythonPackage (finalAttrs: {
     uv-dynamic-versioning
   ];
 
-  pythonRelaxDeps = [
-    "pydocket"
-  ];
   dependencies = [
     authlib
     cyclopts
@@ -72,18 +73,21 @@ buildPythonPackage (finalAttrs: {
     jsonschema-path
     mcp
     openapi-pydantic
+    opentelemetry-api
     packaging
     platformdirs
     py-key-value-aio
     pydantic
-    pydocket
     pyperclip
     python-dotenv
+    pyyaml
     rich
+    uncalled-for
     uvicorn
+    watchfiles
     websockets
   ]
-  ++ py-key-value-aio.optional-dependencies.disk
+  ++ py-key-value-aio.optional-dependencies.filetree
   ++ py-key-value-aio.optional-dependencies.keyring
   ++ py-key-value-aio.optional-dependencies.memory
   ++ pydantic.optional-dependencies.email;
@@ -91,6 +95,7 @@ buildPythonPackage (finalAttrs: {
   optional-dependencies = {
     anthropic = [ anthropic ];
     openai = [ openai ];
+    tasks = [ pydocket ];
   };
 
   pythonImportsCheck = [ "fastmcp" ];
@@ -186,8 +191,8 @@ buildPythonPackage (finalAttrs: {
 
   meta = {
     description = "Fast, Pythonic way to build MCP servers and clients";
-    changelog = "https://github.com/jlowin/fastmcp/releases/tag/${finalAttrs.src.tag}";
-    homepage = "https://github.com/jlowin/fastmcp";
+    changelog = "https://github.com/PrefectHQ/fastmcp/releases/tag/${finalAttrs.src.tag}";
+    homepage = "https://github.com/PrefectHQ/fastmcp";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ GaetanLepage ];
   };
