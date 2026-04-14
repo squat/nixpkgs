@@ -9,10 +9,9 @@
 
   # dependencies
   cloudpickle,
+  cronsim,
   fakeredis,
   opentelemetry-api,
-  opentelemetry-exporter-prometheus,
-  opentelemetry-instrumentation,
   prometheus-client,
   py-key-value-aio,
   python-json-logger,
@@ -20,18 +19,19 @@
   rich,
   typer,
   typing-extensions,
+  uncalled-for,
 }:
 
 buildPythonPackage (finalAttrs: {
   pname = "pydocket";
-  version = "0.17.1";
+  version = "0.19.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chrisguidry";
     repo = "docket";
     tag = finalAttrs.version;
-    hash = "sha256-p3FqIHulsBxI7oyiahEruARXBuA2QAYdQeVh83OFHbg=";
+    hash = "sha256-sgTqeXvImn5BpFF9idvX44mJcASIBVFt8Jv9cOrgNGs=";
   };
 
   build-system = [
@@ -41,15 +41,13 @@ buildPythonPackage (finalAttrs: {
 
   pythonRelaxDeps = [
     "fakeredis"
-    "opentelemetry-exporter-prometheus"
-    "opentelemetry-instrumentation"
   ];
+
   dependencies = [
     cloudpickle
+    cronsim
     fakeredis
     opentelemetry-api
-    opentelemetry-exporter-prometheus
-    opentelemetry-instrumentation
     prometheus-client
     py-key-value-aio
     python-json-logger
@@ -57,6 +55,7 @@ buildPythonPackage (finalAttrs: {
     rich
     typer
     typing-extensions
+    uncalled-for
   ]
   ++ fakeredis.optional-dependencies.lua
   ++ py-key-value-aio.optional-dependencies.memory
